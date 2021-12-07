@@ -3,6 +3,8 @@ package com.example.secondclass;
 import android.os.Bundle;
 
 import com.example.secondclass.analytics.AnalyticsAdapter;
+import com.example.secondclass.data.dao.UserDao;
+import com.example.secondclass.data.entity.User;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.HashMap;
+import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
@@ -33,6 +36,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     AnalyticsAdapter analyticsAdapter;
+
+    //Injection to save in localDatabase
+    @Inject
+    UserDao userDao;
+
+    @Inject
+    Executor executor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +59,25 @@ public class MainActivity extends AppCompatActivity {
 
         analyticsAdapter.report("test", new HashMap<>());
 
+
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
+                insertSampleUser();
+
             }
 
 
+        });
+    }
+
+    private void insertSampleUser(){
+        executor.execute(() -> {
+            userDao.insertAll(new User("Javier", "Murcia"));
         });
     }
 

@@ -72,7 +72,7 @@ public class FirstFragment extends Fragment {
         // Generate a instance
         Retrofit retrofit = RetrofitGenerator.getInstance(storage);
         AuthService authService = retrofit.create(AuthService.class);
-        LoginDto loginDto = new LoginDto("santiago@mail.com","passw0rd");
+        LoginDto loginDto = new LoginDto("javier@mail.com","passw0rd");
         //If the case is Successfully
         Action1<TokenDto> successAction = tokenDto -> onSuccess(tokenDto.getAccessToken());
         //If the case is Failed

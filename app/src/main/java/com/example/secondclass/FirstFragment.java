@@ -30,6 +30,8 @@ public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
 
+
+
     //Storage Instance
     private Storage storage;
 
@@ -60,6 +62,8 @@ public class FirstFragment extends Fragment {
 
             // Request the auth token
             sendAuthRequest();
+
+            // Injection
 
         });
     }

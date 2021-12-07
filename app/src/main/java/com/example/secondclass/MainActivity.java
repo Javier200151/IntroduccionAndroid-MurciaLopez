@@ -2,6 +2,7 @@ package com.example.secondclass;
 
 import android.os.Bundle;
 
+import com.example.secondclass.analytics.AnalyticsAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,10 +19,20 @@ import com.example.secondclass.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.HashMap;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+
+    @Inject
+    AnalyticsAdapter analyticsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +47,17 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+        analyticsAdapter.report("test", new HashMap<>());
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
             }
+
+
         });
     }
 
